@@ -1,0 +1,121 @@
+equipment->equipos
+report->reportes
+failure->fallas.
+replacement->repuestos.
+profile->perfiles.
+position->cargo.
+kind->tipo de equipos.
+task->tareas. protocolo->de fabrica, protocolo generico,
+rcm analisis de falla mantenimiento confiado en confiabilidad
+characteristic-caracteristicas.
+feature
+property
+
+# Correcto
+$users = User::all(['id', 'name', 'email']);
+
+# Correcto
+$posts = Post::paginate(30, ['id', 'title', 'content', 'user_id']);
+
+# Correcto
+$post = Post::where('id', $id)->first(['id', 'title', 'content']);
+# Correcto
+$users = User::with([
+  'posts' => function($query){
+      $query->select('id', 'title', 'content', 'user_id');
+   }
+])->get(['id', 'name', 'email']);
+
+# Correcto
+$posts = Post::with([
+   'tags' => function($query){
+       $query->select('id', 'name'); # Muchos a muchos
+   },
+   'images' => function($query){
+       $query->select('id', 'url', 'post_id'); # Uno a mucho
+   },
+   'user' => function($query){
+       $query->select('id', 'name'); # Uno a muchos
+   }
+])->get(['id', 'title', 'content', 'user_id']);
+
+$fallas=Falla::with([
+    'equipo'=>funtions($query){
+        $query->select('id','name','tipo','zona_id');
+    },
+    'zona'=>function($query){
+        $query->select('id','name');
+    }
+])->get();
+
+$invoice = Invoice::where('id', $id)
+   ->with([
+       'products' => function($query){
+           $query->select('id', 'price', 'description', 'subcategory_id')
+                 ->withPivot('quantity', 'subvalue', 'taxes', 'value');
+       },
+       'products.subcategory' => function($query){
+           $query->select('id', 'name', 'category_id');
+       },
+       'products.subcategory.category' => function($query){
+           $query->select('id', 'name');
+       },
+       'customer' => function($query){
+           $query->select('id', 'name', 'lastname', 'dni', 'addrress', 'phone');
+       },
+  ])->first(['id', 'subvalue', 'taxes', 'value', 'customer_id']);
+
+
+comprador_id=>User::inRandomOrder()->first()->id;
+comprador_id=>User::all()->random()->id;
+
+DB::statement('SET_FOREIGN_KEYS_CHECH=0');
+Modelo::truncate();
+DB::table('tabla_pivot)->truncate();
+
+
+Route::get('product/{id}/title/{title}', 'ProductController@show')->where([
+    'id' => '[0-9]+',
+    'title' => '[a-z]+'
+]);
+
+Route::get('product/{status}', 'ProductController@index')->where('status', 'approved|draft');
+
+
+Si siempre repetimos, por ejemplo, que las rutas que tienen el parámetro {id} deben ser un valor comprendido entre 0 y 9 (con la expresión regular [0-9]+), podemos simplificar esto haciendo una definición global. Veamos como hacerlo.
+Debemos editar el archivo app/Providers/RouteServiceProvider.php de la siguiente manera:
+
+public function boot()
+{
+    Route::pattern('id', '[0-9]+');
+    parent::boot();
+}
+
+
+editable:true,
+        eventDrop: function(event, delta, revertFunc) {
+
+            if ('<?php echo  $fechaActual; ?>' == event.start.format("YYYY-MM-DD")) {
+
+            var title = event.title;
+            var start = event.start.format();
+            var end = (event.end == null) ? start : event.end.format();
+            $.ajax({
+                url: 'modelos/TiempoTrabajo.php',
+                data: 'accion=resetDate&start='+start+'&end='+end+'&eventid='+event.id,
+                type:'POST',
+                dataType:'json',
+                success: function(response){
+                    $('#calendar').fullCalendar('updateEvent',event);
+                    if(response.status != 'success')
+                    revertFunc();
+                },
+                error: function(e){
+                    revertFunc();
+                    alert('Error processing your request: '+e.responseText);
+                }
+            });
+            }else{
+                event.editable=false;
+            }
+        },

@@ -1,0 +1,56 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.content-card
+
+.d-flex-ed{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cxy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.h-screen{
+    height: 80vh;
+}
+
+.bg-white{
+    background: #fff;
+}
+
+.bged{
+    background: rgb(144, 182, 233);
+}
+
+.shadow-ed {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.75) !important;
+}
+
+.texth4{
+    color:white;
+}
+
+hr{
+    margin: 0;
+}
+
+.d-grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+h4{
+    color: white;
+}

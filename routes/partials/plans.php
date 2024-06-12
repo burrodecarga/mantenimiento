@@ -1,0 +1,21 @@
+<?php
+Route::post('plans/store', 'PlanController@store')->name('plans.store')->middleware('can:plans.create');
+Route::get('plans', 'PlanController@index')->name('plans.index')->middleware('can:plans.index');
+Route::get('plans/create', 'PlanController@create')->name('plans.create')->middleware('can:plans.create');
+Route::put('plans/{plan}', 'PlanController@update')->name('plans.update')->middleware('can:plans.edit');
+Route::get('plans/{plan}', 'PlanController@show')->name('plans.show')->middleware('can:plans.show');
+Route::delete('plans/{plan}', 'PlanController@destroy')->name('plans.destroy')->middleware('can:plans.destroy');
+Route::get('plans/{plan}/edit', 'PlanController@edit')->name('plans.edit')->middleware('can:plans.edit');
+Route::get('plans/{plan}/add', 'PlanController@add')->name('plans.add')->middleware('can:plans.edit');
+Route::put('plans/{plan}/addStore', 'PlanController@addStore')->name('plans.addStore')->middleware('can:plans.edit');
+Route::get('plans/{plan}/creaTarea', 'PlanController@creaTarea')->name('plans.creaTarea')->middleware('can:plans.edit');
+Route::get('plans/{plan}/ajustes', 'PlanController@ajustes')->name('plans.ajustes')->middleware('can:plans.edit');
+Route::post('plans/mdf', 'PlanController@mdf')->name('plans.mdf')->middleware('can:plans.create');
+Route::get('plans/{plan}/{equipo}/definicion', 'PlanController@definicion')->name('plans.definicion')->middleware('can:plans.edit');
+Route::get('plans/{task}/team', 'PlanController@team')->name('plans.team')->middleware('can:plans.edit');
+Route::put('plans/{task}/operativo', 'PlanController@operativo')->name('plans.operativo')->middleware('can:plans.edit');
+Route::get('plans/{task}/recursos', 'PlanController@recursos')->name('plans.recursos')->middleware('can:plans.edit');
+Route::post('plans/storeAjustes', 'PlanController@storeAjustes')->name('plans.storeAjustes')->middleware('can:plans.edit');
+Route::get('plans/{plan}/{equipo}/{task}/recursosEdit', 'PlanController@recursosEdit')->name('plans.recursosEdit')->middleware('can:plans.edit');
+Route::put('plans/{equipo}/recursosStore', 'PlanController@recursosStore')->name('plans.recursosStore')->middleware('can:plans.create');
+Route::get('plans/{plan}/calendario', 'PlanController@calendario')->name('plans.calendario')->middleware('can:plans.edit');
